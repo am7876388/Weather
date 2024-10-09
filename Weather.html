@@ -5,7 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Weather.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="w-screen h-screen flex items-center justify-center" style="background-image: url('./images/fullpage-bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div id="Weather-container" class="Weather-padding" style="background-image: url('./images/background-day.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div id="City-Details-container" class="w-full flex">
+            <div id="City-Name" class="w-1/2"><h1 class="text-5xl font-medium text-white mb-2 font-sans">Tehran</h1>
+            <h2 class="text-m font-normal text-white">Wednesday, 9 October 2024 | 8:53 AM</h2></div>
+            <div id="Search" class="w-1/2 flex" ><input type="search" class="p-3 pr-6 rounded-xl w-2/3 mt-2 h-2/3" placeholder="Enter City or Location"> <input type="submit" value="Search" class=" w-1/5 h-2/3 text-m rounded-2xl mt-2 p-3 -ml-5" style="background-color:#17249a;color: rgb(255, 255, 255);"> <button class="mt-2 h-2/3 ml-2 rounded-xl flex justify-center items-center" style="background-color:#17249a;color: rgb(255, 255, 255); width: 3.2vw;">
+             <img src="./Icons/location-light.svg" alt="">
+            </button></div>
+        </div>
+        <div id="Temperature-details" class="w-full flex" style="margin-top: 2rem;"><div id="Left" class="w-1/2 flex"><h1 id="Temp" class="text-9xl text-white flex items-end mr-4">21</h1>
+        <div id="More-details" class="text-white text-2xl w-1/2" style="display: flex; flex-direction: column; justify-content: end;"><div id="Temp-denote" class="w-full flex text-2xl">
+        <h1 class="mr-2">C</h1> |
+        <h1 class="ml-2"> F</h1></div>
+        <h1 class="mt-2 mb-4">Few Clouds</h1></div></div>
+       <div id="Right" class="w-1/2 flex" style="padding-left: 5rem;"><img src="./Icons/02d.svg" alt="" style="width: 15vw;"><div id="Additional-Info" class="h-full">
+       <div class="w-full flex space-x-2" style="margin-top: 6rem;">
+        <img src="./Icons/feels-like.svg" style="width: 1.5rem;" alt=""> <h1 class="text-white mb-2" style="font-size: 0.9rem;">Feels like: 31 C</h1></div>
+       <div class="w-full flex space-x-2"><img src="./Icons/humidity.svg" style="width: 1.5rem;" alt=""> <h1 class="text-white mb-2" style="font-size: 0.9rem;" >Feels like: 31 C</h1></div>
+       <div class="w-full flex space-x-2"><img src="./Icons/wind.svg" style="width: 1.5rem;" alt=""> <h1 class="text-white mb-2" style="font-size: 0.9rem;" >Feels like: 31 C</h1></div>
+    </div></div></div>
+    <div id="Forecast" class="w-full rounded-3xl" style="background-color:rgba(10, 36, 128, 0.6); margin-top: 4rem; height: 11rem;"></div>
+    </div>
 </body>
 </html>

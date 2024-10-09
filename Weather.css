@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-size: 1vw;
+    font-family: Poppins;
+}
+#Weather-container{
+    width: 65rem;
+    height: 43rem;
+    border-radius: 2vw;
+}
+.Weather-padding{
+    padding: 4vw 3vw;
+}
