@@ -6,9 +6,17 @@
 }
 #Weather-container{
     width: 65rem;
-    height: 43rem;
+    height: fit-content;
     border-radius: 2vw;
+    background-image: url('./images/background-day.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
 }
 .Weather-padding{
     padding: 4vw 3vw;
+}
+.Hovering:hover{
+    cursor: pointer;
+    opacity:1;
 }
