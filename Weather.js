@@ -1,3 +1,21 @@
+function HistoryLoader(){
+    const HArr = JSON.parse(localStorage.getItem("History"));
+    CityList.innerHTML = "";
+    for(let i = HArr.length - 1; i >= 0; i--){
+     const li = document.createElement("li");
+     const div = document.createElement("div");
+     li.classList.add("CityLi","rounded-3xl");
+     div.textContent = HArr[i];
+     div.setAttribute("onclick","NameBasedWeatherSearch(this.innerHTML)");
+     li.appendChild(div);
+     const IMG = document.createElement("img");
+     IMG.classList.add("w-6","h-6","TrashIcon");
+     IMG.setAttribute("src","./Icons/Trash.svg");
+     IMG.setAttribute("onclick","Delete(this)");
+     li.appendChild(IMG);
+     CityList.appendChild(li);
+ } 
+ }
 document.addEventListener("DOMContentLoaded",() =>{
     const Submission = document.getElementById("Submission");
     const Search = document.getElementById("Search");
@@ -17,7 +35,14 @@ document.addEventListener("DOMContentLoaded",() =>{
     const Dayss = document.getElementsByClassName("Days");
     const Fahernheit = document.getElementById("Fahrenheit");
     const Celsius = document.getElementById("Celsius");
+    const LocationIcon = document.getElementById("Location-Icon");
+    const DropDown = document.getElementById("DropDown");
+    const MenuIcon = document.getElementById("Menu-Icon");
+    const CityList = document.getElementById("CityList");
     let Mode = 0;
+    if(!localStorage.getItem("History")){
+        localStorage.setItem("History",JSON.stringify([]));
+    }
     const DayMap = new Map();
     DayMap.set(1,"Monday");
     DayMap.set(2,"Tuesday");
@@ -52,15 +77,12 @@ document.addEventListener("DOMContentLoaded",() =>{
     let AM_PM = "";
     if(Hour >= 12){
         AM_PM = "PM";
-        if(Hour > 12){
-            Hour -= 12;
-        }
     }
     else{
         AM_PM = "AM";
     }
     let Night = false;
-    if(Hour >= 6 && AM_PM === "PM"){
+    if(Hour >= 18 && AM_PM === "PM"){
         Night = true;
     }
     if(Hour <=6 && AM_PM === "AM"){
@@ -88,6 +110,20 @@ document.addEventListener("DOMContentLoaded",() =>{
             }
         }).then((data) =>{
             City.innerHTML = `${data.name}`;
+            const Arr = JSON.parse(localStorage.getItem("History"));
+            if (!Arr.includes(data.name)) {
+                if(Arr.length >= 5){
+                 Arr.shift();
+                 Arr.push(data.name);
+                 localStorage.setItem("History",JSON.stringify(Arr));
+                 HistoryLoader();
+                }
+                else{
+                    Arr.push(data.name);
+                    localStorage.setItem("History",JSON.stringify(Arr));
+                    HistoryLoader();
+                }
+            }
         }).catch((err) =>{
             console.log(err);
         })
@@ -106,9 +142,29 @@ document.addEventListener("DOMContentLoaded",() =>{
             const Nights = TimeObject.NightorNot;
             if(Nights){
                 Background.style.backgroundImage = "url('./images/background-night.png')";
+                Search.classList.add("night-mode");
+                Search.classList.remove("light-mode");
+                Submission.classList.add("button-dark");
+                Submission.classList.remove("button-light");
+                Location.classList.add("button-dark");
+                Location.classList.remove("button-light");
+                LocationIcon.setAttribute("src","./Icons/location-dark.svg");
+                DropDown.classList.add("button-dark");
+                DropDown.classList.remove("button-light");
+                MenuIcon.setAttribute("src","./Icons/history-Night.svg");
             }
             else{
                 Background.style.backgroundImage = "url('./images/background-day.png')";
+                Search.classList.add("light-mode");
+                Search.classList.remove("night-mode");
+                Submission.classList.add("button-light");
+                Submission.classList.remove("button-dark");
+                Location.classList.add("button-light");
+                Location.classList.remove("button-dark");
+                LocationIcon.setAttribute("src","./Icons/location-light.svg");
+                DropDown.classList.add("button-light");
+                DropDown.classList.remove("button-dark");
+                MenuIcon.setAttribute("src","./Icons/history-Day.svg");
             }
             DateandTimes.innerHTML = `${TimeObject.Days}, ${TimeObject.Number} ${TimeObject.Months} ${TimeObject.Years} | ${TimeObject.Hours}:${TimeObject.Minutes} ${TimeObject.DayTime}`
             Temp.innerHTML=  `${Math.round(data.current.temp)}`;
@@ -134,7 +190,7 @@ document.addEventListener("DOMContentLoaded",() =>{
     function ErrorinLocation(err){
         console.log(err.code);
     }
-    function NameBasedWeatherSearch(Data){
+    window.NameBasedWeatherSearch = (Data) =>{
         const API = `https://api.openweathermap.org/data/2.5/weather?q=${Data}&appid=1fd8093fa5ff12d796d7de756cc9d6b9&units=metric`;
     fetch(API).then((response) =>{
         if(!response.ok){
@@ -157,6 +213,8 @@ document.addEventListener("DOMContentLoaded",() =>{
             console.error("Browser doesn't support GeoLocation");
         }
     });
+    NameBasedWeatherSearch("New Delhi");
+    HistoryLoader();
     Submission.addEventListener("click",() =>{
     const Value = Search.value.toLowerCase();
     NameBasedWeatherSearch(Value);

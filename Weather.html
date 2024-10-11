@@ -9,17 +9,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="w-screen h-screen flex items-center justify-center" style="background-image: url('./images/fullpage-bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div id="History-Container" class="relative">
+    <ul id="CityList" class="list-none z-2 absolute opacity-0">
+</div>
     <div id="Weather-container" class="Weather-padding">
         <div id="City-Details-container" class="w-full flex">
             <div id="City-Name" class="w-1/2"><h1 class="text-5xl font-medium text-white mb-2 font-sans" id="City-Searched">Tehran</h1>
             <h2 class="text-m font-normal text-white opacity-80" id="Date-and-Time">Wednesday, 9 October 2024 | 8:53 AM</h2></div>
             <div class="w-1/2 flex" ><input type="search" class="p-3 pr-6 rounded-xl w-2/3 mt-2 h-2/3"  id="Search" placeholder="Enter City or Location"> <input type="submit" id="Submission" value="Search" class=" w-1/5 h-2/3 text-m rounded-2xl mt-2 p-3 -ml-5" style="background-color:#17249a;color: rgb(255, 255, 255);"> <button id="User-Location" class="mt-2 h-2/3 ml-2 rounded-xl flex justify-center items-center" style="background-color:#17249a;color: rgb(255, 255, 255); width: 3.2rem;">
-             <img src="./Icons/location-light.svg" alt="">
-            </button></div>
+             <img src="./Icons/location-light.svg" class="h-3/5 w-3/5" id="Location-Icon">
+            </button> <button id="DropDown" class="mt-2 h-2/3 ml-2 rounded-xl" style="background-color:#17249a;color: rgb(255, 255, 255); width: 3.2rem;">
+                <img src="./Icons/history-Day.svg" class="h-3/5 w-3/5 ml-2" id="Menu-Icon">
+               </button></div>
         </div>
         <div id="Temperature-details" class="w-full flex" style="margin-top: 2rem;"><div id="Left" class="w-1/2 flex"><h1 id="Temp" class="text-9xl text-white flex items-end mr-4">21</h1>
         <div id="More-details" class="text-white text-2xl w-1/2" style="display: flex; flex-direction: column; justify-content: end;"><div id="Temp-denote" class="w-full flex text-2xl">
-        <h1 class="mr-2" id="Celsius">&deg;C</h1> |
+        <h1 class="mr-2a a" id="Celsius">&deg;C</h1> |
         <h1 class="ml-2" id="Fahrenheit">&deg;F</h1></div>
         <h1 class="mt-2 mb-4" id="Weather-condition">Few Clouds</h1></div></div>
        <div id="Right" class="w-1/2 flex" style="padding-left: 5rem;"><img src="./Icons/02d.svg" alt="" style="width: 15rem;" id="Weather-Icon"><div id="Additional-Info" class="h-full">
@@ -52,5 +57,6 @@
     </div>
     </div>
     <script src="Weather.js"></script>
+    <script src="OtherFunctions.js"></script>
 </body>
 </html>
