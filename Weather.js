@@ -218,6 +218,9 @@ document.addEventListener("DOMContentLoaded",() =>{
     Submission.addEventListener("click",() =>{
     const Value = Search.value.toLowerCase();
     NameBasedWeatherSearch(Value);
+    });
+    Search.addEventListener("input",() =>{
+        NameBasedWeatherSearch(Search.value.toLowerCase());
     })
     Fahernheit.addEventListener("click",() =>{
         if(Mode === 0){

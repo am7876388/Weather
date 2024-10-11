@@ -8,15 +8,18 @@ function Delete(element){
 document.addEventListener("DOMContentLoaded",() =>{
     const HistoryIcon = document.getElementById("DropDown");
     const List = document.getElementById("CityList");
-    let On = 0;
+    List.style.opacity = "0";
     HistoryIcon.addEventListener("click",() =>{
-        if(On === 0){
+        if(List.style.opacity === "0"){
             List.style.opacity = "1";
-            On = 1;
         }
         else{
             List.style.opacity = "0";
-            On = 0;
+        }
+    })
+    document.addEventListener("click",(event) =>{
+        if(!HistoryIcon.contains(event.target) && !List.contains(event.target)){
+            List.style.opacity = "0";
         }
     })
 })
