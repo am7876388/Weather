@@ -4,56 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="Weather.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = {
+        theme:{
+            extend:{
+                screens:{
+                    "cs":"320px",
+                    "cl":"1024px"
+                },
+                width:{
+                    "cw":"65vw",
+                },
+                height:{
+                    "ch":"27vw"
+                },
+                fontSize:{
+                    "xm":"12vw"
+                }
+            },
+        },
+    }</script>
 </head>
 <body class="w-screen h-screen flex items-center justify-center" style="background-image: url('./images/fullpage-bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
     <div id="History-Container" class="relative">
-    <ul id="CityList" class="list-none z-2 absolute opacity-0">
+    <ul id="CityList" class="list-none z-2 absolute cl:left-0 cl:-top-8 cs:left-28 cs:-top-8 opacity-0 cl:w-48 cs:w-80">
 </div>
-    <div id="Weather-container" class="Weather-padding">
-        <div id="City-Details-container" class="w-full flex">
-            <div id="City-Name" class="w-1/2"><h1 class="text-5xl font-medium text-white mb-2 font-sans" id="City-Searched">Tehran</h1>
-            <h2 class="text-m font-normal text-white opacity-80" id="Date-and-Time">Wednesday, 9 October 2024 | 8:53 AM</h2></div>
-            <div class="w-1/2 flex" ><input type="search" class="p-3 pr-6 rounded-xl w-2/3 mt-2 h-2/3"  id="Search" placeholder="Enter City or Location"> <input type="submit" id="Submission" value="Search" class=" w-1/5 h-2/3 text-m rounded-2xl mt-2 p-3 -ml-5" style="background-color:#17249a;color: rgb(255, 255, 255);"> <button id="User-Location" class="mt-2 h-2/3 ml-2 rounded-xl flex justify-center items-center" style="background-color:#17249a;color: rgb(255, 255, 255); width: 3.2rem;">
-             <img src="./Icons/location-light.svg" class="h-3/5 w-3/5" id="Location-Icon">
-            </button> <button id="DropDown" class="mt-2 h-2/3 ml-2 rounded-xl" style="background-color:#17249a;color: rgb(255, 255, 255); width: 3.2rem;">
-                <img src="./Icons/history-Day.svg" class="h-3/5 w-3/5 ml-2" id="Menu-Icon">
+    <div id="Weather-container" class="Weather-padding h-auto cl:w-cw cs:w-4/5">
+        <div id="City-Details-container" class="w-full cl:flex">
+            <div id="City-Name" class="cl:w-1/2  cl:text-start cs:w-full cs:text-center"><h1 class="cl:text-5xl cs:text-9xl cl:mb-2 cs:mb-6 font-medium text-white font-sans" id="City-Searched">Enter any city</h1>
+            <h2 class="cl:text-lg cs:text-4xl font-normal text-white opacity-80" id="Date-and-Time">Wednesday, 9 October 2024 | 8:53 AM</h2></div>
+            <div class="cl:w-1/2 cl:mt-0 cs:w-full cs:h-16 flex cs:justify-center cs:mt-10" ><input type="search" class="p-3 pr-6 rounded-xl cl:w-2/3 mt-2 cl:h-2/3 cs:w-1/2 cs:h-full cs:text-3xl cl:text-base"  id="Search" placeholder="Enter City or Location"> <input type="submit" id="Submission" value="Search" class="w-1/5 cl:h-2/3 text-top cl:text-base rounded-2xl mt-2 p-3 -ml-5 cs:h-full cs:text-3xl" style="background-color:#17249a;color: rgb(255, 255, 255);"> <button id="User-Location" class="mt-2 cl:h-2/3 ml-2 rounded-xl flex justify-center items-center cl:w-12 cs:w-20 cs:h-full" style="background-color:#17249a;color: rgb(255, 255, 255);">
+             <img src="./Icons/location-light.svg" class="cl:h-3/5 cl:w-3/5 cs:h-full cs:w-full" id="Location-Icon">
+            </button> <button id="DropDown" class="mt-2 cl:h-2/3 ml-2 rounded-xl flex justify-center items-center justify-center cl:w-12 cs:w-20 cs:h-full" style="background-color:#17249a;color: rgb(255, 255, 255);">
+                <img src="./Icons/history-Day.svg" class="cl:h-3/5 cl:w-3/5 cs:h-full cs:w-full" id="Menu-Icon">
                </button></div>
         </div>
-        <div id="Temperature-details" class="w-full flex" style="margin-top: 2rem;"><div id="Left" class="w-1/2 flex"><h1 id="Temp" class="text-9xl text-white flex items-end mr-4">21</h1>
-        <div id="More-details" class="text-white text-2xl w-1/2" style="display: flex; flex-direction: column; justify-content: end;"><div id="Temp-denote" class="w-full flex text-2xl">
-        <h1 class="mr-2a a" id="Celsius">&deg;C</h1> |
-        <h1 class="ml-2" id="Fahrenheit">&deg;F</h1></div>
-        <h1 class="mt-2 mb-4" id="Weather-condition">Few Clouds</h1></div></div>
-       <div id="Right" class="w-1/2 flex" style="padding-left: 5rem;"><img src="./Icons/02d.svg" alt="" style="width: 15rem;" id="Weather-Icon"><div id="Additional-Info" class="h-full">
-       <div class="w-full flex space-x-2" style="margin-top: 6rem;">
-        <img src="./Icons/feels-like.svg" style="width: 1.5rem;" alt=""> <h1 class="text-white mb-2" style="font-size: 0.9rem;" id="CTemp">Feels like: 31 C</h1></div>
-       <div class="w-full flex space-x-2"><img src="./Icons/humidity.svg" style="width: 1.5rem;" alt=""> <h1 class="text-white mb-2" style="font-size: 0.9rem;" id="Humid">Humidity: 31 C</h1></div>
-       <div class="w-full flex space-x-2"><img src="./Icons/wind.svg" style="width: 1.5rem;" alt=""> <h1 class="text-white mb-2" style="font-size: 0.9rem;" id="Windy">Wind: 31 C</h1></div>
+        <div id="Temperature-details" class="w-full flex mt-8"><div id="Left" class="w-1/2 flex"><h1 id="Temp" class="cl:text-9xl cs:text-xm text-white flex items-end cs:mr-4">21</h1>
+        <div id="More-details" class="text-white text-2xl w-1/2 flex flex-col justify-end"><div id="Temp-denote" class="w-full flex text-2xl">
+        <h1 class="mr-2 cl:text-2xl cs:text-4xl hover:cursor-pointer hover:opacity-100 hover:font-bold" id="Celsius">&deg;C</h1> <h1 class="cl:text-2xl cs:text-4xl">|</h1>
+        <h1 class="ml-2 cl:text-2xl cs:text-4xl hover:cursor-pointer hover:opacity-100 hover:font-bold" id="Fahrenheit">&deg;F</h1></div>
+        <h1 class="mt-2 cl:mb-4 cl:text-2xl cs:mb-16 cs:text-4xl" id="Weather-condition">Few Clouds</h1></div></div>
+       <div id="Right" class="w-1/2 flex pl-20"><img src="./Icons/02d.svg" alt="" class="cl:w-60 cs:w-80" id="Weather-Icon"><div id="Additional-Info" class="h-full">
+       <div class="w-full flex space-x-2 cl:mt-24 cs:mt-32">
+        <img src="./Icons/feels-like.svg" class="cl:w-6 cs:w-10" alt=""> <h1 class="text-white mb-2 cl:text-base cs:text-xl" id="CTemp">Feels like: 31 C</h1></div>
+       <div class="w-full flex space-x-2"><img src="./Icons/humidity.svg" class="cl:w-6 cs:w-10" alt=""> <h1 class="text-white mb-2 cl:text-base cs:text-xl" id="Humid">Humidity: 31 C</h1></div>
+       <div class="w-full flex space-x-2"><img src="./Icons/wind.svg" class="cl:w-6 cs:w-10" alt=""> <h1 class="text-white mb-2 cl:text-base cs:text-xl" id="Windy">Wind: 31 C</h1></div>
     </div></div></div>
-    <div id="Forecast" class="w-full rounded-3xl p-8 flex text-white" style="background-color:rgba(10, 36, 128, 0.6); margin-top: 4rem; height:fit-content;">
-    <div class="w-1/5 h-full flex flex-col items-center"><h4 class="Days opacity-80">Wednesday</h4>
-    <img src="./Icons/01d.svg" class="Forecast-img" alt="" style="width: 6rem;">
-    <h4 class="Max-Min text-lg">29&deg; - 30&deg;</h4>
-    <h4 class="Description opacity-80">moderate rain</h4></div>
-    <div class="w-1/5 h-full flex flex-col items-center"><h4 class="Days opacity-80">Wednesday</h4>
-    <img src="./Icons/01d.svg" alt="" class="Forecast-img" style="width: 6rem;">
-    <h4 class="Max-Min text-lg">29&deg; - 30&deg;</h4>
-    <h4 class="Description opacity-80">moderate rain</h4></div>
-    <div class="w-1/5 h-full flex flex-col items-center"><h4 class="Days opacity-80">Wednesday</h4>
-    <img src="./Icons/01d.svg" alt="" class="Forecast-img" style="width: 6rem;">
-    <h4 class="Max-Min text-lg">29&deg; - 30&deg;</h4>
-    <h4 class="Description opacity-80">moderate rain</h4></div>
-    <div class="w-1/5 h-full flex flex-col items-center"><h4 class="Days opacity-80">Wednesday</h4>
-    <img src="./Icons/01d.svg" alt="" class="Forecast-img" style="width: 6rem;">
-    <h4 class="Max-Min text-lg">29&deg; - 30&deg;</h4>
-    <h4 class="Description opacity-80">moderate rain</h4></div>
-    <div class="w-1/5 h-full flex flex-col items-center"><h4 class="Days opacity-80">Wednesday</h4>
-    <img src="./Icons/01d.svg" alt="" class="Forecast-img" style="width: 6rem;">
-    <h4 class="Max-Min text-lg">29&deg; - 30&deg;</h4>
-    <h4 class="Description opacity-80">moderate rain</h4></div>
+    <div id="Forecast" class="w-full cl:h-auto cs:h-ch overflow-auto rounded-3xl p-8 flex cl:flex-row cs:flex-col text-white cl:mt-16 cs:mt-32" style="background-color:rgba(10, 36, 128, 0.6);">
+    <div class="cl:w-1/5 cl:h-auto cs:w-full flex flex-col items-center cs:mb-6 cl:mb-0"><h4 class="Days opacity-80 cl:text-base cs:text-5xl">Wednesday</h4>
+    <img src="./Icons/01d.svg" class="Forecast-img cl:w-24 cs:w-48" alt="">
+    <h4 class="Max-Min cl:text-lg cs:text-5xl">29&deg; - 30&deg;</h4>
+    <h4 class="Description cl:text-base cs:text-4xl opacity-80">moderate rain</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl Air">Wind: 80Km/h</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl mt-0.5 Water">Humid: 80Km/h</h4></div>
+     <div class="cl:w-1/5 cl:h-full cs:w-full flex flex-col items-center"><h4 class="Days opacity-80 cl:text-base cs:text-5xl">Wednesday</h4>
+     <img src="./Icons/01d.svg" class="Forecast-img cl:w-24 cs:w-48" alt="">
+     <h4 class="Max-Min cl:text-lg cs:text-5xl">29&deg; - 30&deg;</h4>
+     <h4 class="Description cl:text-base cs:text-4xl opacity-80">moderate rain</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl Air">Wind: 80Km/h</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl mt-0.5 Water">Humid: 80Km/h</h4></div>
+     <div class="cl:w-1/5 cl:h-full cs:w-full flex flex-col items-center"><h4 class="Days opacity-80 cl:text-base cs:text-5xl">Wednesday</h4>
+     <img src="./Icons/01d.svg" class="Forecast-img cl:w-24 cs:w-48" alt="">
+     <h4 class="Max-Min cl:text-lg cs:text-5xl">29&deg; - 30&deg;</h4>
+     <h4 class="Description cl:text-base cs:text-4xl opacity-80">moderate rain</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl Air">Wind: 80Km/h</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl mt-0.5 Water">Humid: 80Km/h</h4></div>
+     <div class="cl:w-1/5 cl:h-full cs:w-full flex flex-col items-center"><h4 class="Days opacity-80 cl:text-base cs:text-5xl">Wednesday</h4>
+     <img src="./Icons/01d.svg" class="Forecast-img cl:w-24 cs:w-48" alt="">
+     <h4 class="Max-Min cl:text-lg cs:text-5xl">29&deg; - 30&deg;</h4>
+     <h4 class="Description cl:text-base cs:text-4xl opacity-80">moderate rain</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl Air">Wind: 80Km/h</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl mt-0.5 Water">Humid: 80Km/h</h4></div>
+     <div class="cl:w-1/5 cl:h-full cs:w-full flex flex-col items-center"><h4 class="Days opacity-80 cl:text-base cs:text-5xl">Wednesday</h4>
+     <img src="./Icons/01d.svg" class="Forecast-img cl:w-24 cs:w-48" alt="">
+     <h4 class="Max-Min cl:text-lg cs:text-5xl">29&deg; - 30&deg;</h4>
+     <h4 class="Description cl:text-base cs:text-4xl opacity-80">moderate rain</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl Air">Wind: 80Km/h</h4>
+     <h4 class="opacity-80 cl:text-sm cs:text-3xl mt-0.5 Water">Humid: 80Km/h</h4></div>
     </div>
     </div>
     <script src="Weather.js"></script>

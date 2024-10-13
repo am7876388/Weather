@@ -5,8 +5,6 @@
     font-family: Poppins;
 }
 #Weather-container{
-    width: 65rem;
-    height: fit-content;
     border-radius: 2vw;
     background-image: url('./images/background-day.png'); 
     background-size: cover; 
@@ -41,19 +39,12 @@
     color: black !important;
 }
 #CityList{
-    left: 0rem;
-    top: 0rem;
     background-color:whitesmoke;
     border-radius: 0.5rem;
     color: black;
-    width: 12rem;
 }
 .CityLi{
-    font-size: 1.2rem;
     padding: 1rem 0.5rem;
-    margin: 1rem;
-    display: flex;
-    justify-content: space-between;
 }
 #History-Container{
     left: 60rem;

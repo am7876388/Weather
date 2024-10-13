@@ -4,17 +4,27 @@ function HistoryLoader(){
     for(let i = HArr.length - 1; i >= 0; i--){
      const li = document.createElement("li");
      const div = document.createElement("div");
-     li.classList.add("CityLi","rounded-3xl");
+     li.classList.add("CityLi","rounded-3xl","m-4","flex","justify-between");
      div.textContent = HArr[i];
      div.setAttribute("onclick","NameBasedWeatherSearch(this.innerHTML)");
+     div.classList.add("cl:text-lg","cs:text-3xl")
      li.appendChild(div);
      const IMG = document.createElement("img");
-     IMG.classList.add("w-6","h-6","TrashIcon");
+     IMG.classList.add("cl:w-8","cl:h-8","TrashIcon","cs:w-12","cs:h-12");
      IMG.setAttribute("src","./Icons/Trash.svg");
-     IMG.setAttribute("onclick","Delete(this)");
+     IMG.addEventListener("click",(event) =>{
+        Delete(event.target);
+        event.stopPropagation();
+     });
      li.appendChild(IMG);
      CityList.appendChild(li);
- } 
+ }
+ if(JSON.parse(localStorage.getItem("History")).length === 0){
+    DropDown.style.display = "none";
+}
+else{
+    DropDown.style.display = "flex";
+} 
  }
 document.addEventListener("DOMContentLoaded",() =>{
     const Submission = document.getElementById("Submission");
@@ -38,7 +48,8 @@ document.addEventListener("DOMContentLoaded",() =>{
     const LocationIcon = document.getElementById("Location-Icon");
     const DropDown = document.getElementById("DropDown");
     const MenuIcon = document.getElementById("Menu-Icon");
-    const CityList = document.getElementById("CityList");
+    const Water = document.getElementsByClassName("Water");
+    const Air = document.getElementsByClassName("Air");
     let Mode = 0;
     if(!localStorage.getItem("History")){
         localStorage.setItem("History",JSON.stringify([]));
@@ -125,6 +136,7 @@ document.addEventListener("DOMContentLoaded",() =>{
                 }
             }
         }).catch((err) =>{
+            alert(err);
             console.log(err);
         })
     }
@@ -178,7 +190,9 @@ document.addEventListener("DOMContentLoaded",() =>{
                 Dayss[i].innerHTML = DayObject.Days;
                 MaxMin[i].innerHTML = `${Math.round(data.daily[i].temp.min)}&deg - ${Math.round(data.daily[i].temp.max)}&deg`
                 Image[i].setAttribute("src",`./Icons/${data.daily[i].weather[0].icon}.svg`);
-                Describe[i].innerHTML = `${data.daily[i].weather[0].description}`
+                Describe[i].innerHTML = `${data.daily[i].weather[0].description}`;
+                Water[i].innerHTML = `wind: ${Math.round(data.daily[i].wind_speed)}km/h`;
+                Air[i].innerHTML = `humid: ${Math.round(data.daily[i].humidity)}%`;
              }
         })
     }
@@ -213,7 +227,6 @@ document.addEventListener("DOMContentLoaded",() =>{
             console.error("Browser doesn't support GeoLocation");
         }
     });
-    NameBasedWeatherSearch("New Delhi");
     HistoryLoader();
     Submission.addEventListener("click",() =>{
     const Value = Search.value.toLowerCase();
