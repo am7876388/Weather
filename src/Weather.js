@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded",() =>{
                 }
             }
         }).catch((err) =>{
-            alert(err);
+            alert(err);//An alert will be shown to the user about the Error
             console.log(err);
         })
     }
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded",() =>{
         console.log(err.code);
     }
     window.NameBasedWeatherSearch = (Data) =>{//Name based Search Function
-        if(Data === ""){
+        if(Data === ""){ //Error Handling to check if the Search is empty or not
             alert("Enter a city");
         }
         else{
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded",() =>{
       LocationWeatherForecast(data.coord.lat,data.coord.lon);
     }).catch((err) =>{
         console.log(err);
-        alert(err.message);
+        alert(err.message); //Error Will be shown in the alert box 
     })
 }
     }
