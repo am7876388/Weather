@@ -1,4 +1,4 @@
-function HistoryLoader(){
+function HistoryLoader(){//The main history loader function which helps us to load history
     const HArr = JSON.parse(localStorage.getItem("History"));
     CityList.innerHTML = "";
     for(let i = HArr.length - 1; i >= 0; i--){
@@ -11,7 +11,7 @@ function HistoryLoader(){
      li.appendChild(div);
      const IMG = document.createElement("img");
      IMG.classList.add("cl:w-8","cl:h-8","TrashIcon","cs:w-12","cs:h-12");
-     IMG.setAttribute("src","./Icons/Trash.svg");
+     IMG.setAttribute("src","../Icons/Trash.svg");
      IMG.addEventListener("click",(event) =>{
         Delete(event.target);
         event.stopPropagation();
@@ -27,6 +27,7 @@ else{
 } 
  }
 document.addEventListener("DOMContentLoaded",() =>{
+    //Getting all the important elements which is needed to get updated
     const Submission = document.getElementById("Submission");
     const Search = document.getElementById("Search");
     const CTemp = document.getElementById("CTemp");
@@ -51,10 +52,10 @@ document.addEventListener("DOMContentLoaded",() =>{
     const Water = document.getElementsByClassName("Water");
     const Air = document.getElementsByClassName("Air");
     let Mode = 0;
-    if(!localStorage.getItem("History")){
+    if(!localStorage.getItem("History")){//Checking if the localstorage contains a history item or not
         localStorage.setItem("History",JSON.stringify([]));
     }
-    const DayMap = new Map();
+    const DayMap = new Map();//A map that contain the Days of the Week
     DayMap.set(1,"Monday");
     DayMap.set(2,"Tuesday");
     DayMap.set(3,"Wednsday");
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded",() =>{
     DayMap.set(5,"Friday");
     DayMap.set(6,"Saturday");
     DayMap.set(0,"Sunday");
-    const MonthMap = new Map();
+    const MonthMap = new Map();//A map that contain the months of the week
     MonthMap.set(0,"January");
     MonthMap.set(1,"Feburary");
     MonthMap.set(2,"March");
@@ -75,7 +76,7 @@ document.addEventListener("DOMContentLoaded",() =>{
     MonthMap.set(9,"October");
     MonthMap.set(10,"November");
     MonthMap.set(11,"December");
-    function DateandTime(DateTime ,Offset){
+    function DateandTime(DateTime ,Offset){//Function which helps us to get the time and date based upon the location
     const PreDate = new Date(DateTime * 1000);
     const TimeOffset = Offset * 1000;
     const newDate = new Date(PreDate.getTime() + TimeOffset);
@@ -92,14 +93,14 @@ document.addEventListener("DOMContentLoaded",() =>{
     else{
         AM_PM = "AM";
     }
-    let Night = false;
+    let Night = false; //Night condition checker
     if(Hour >= 18 && AM_PM === "PM"){
         Night = true;
     }
     if(Hour <=6 && AM_PM === "AM"){
         Night = true;
     } 
-    const TimeData = {
+    const TimeData = {//Object which contains the information about the time
         Years:Year,
         Number:Dates,
         Hours:Hour,
@@ -111,7 +112,7 @@ document.addEventListener("DOMContentLoaded",() =>{
     }
     return TimeData;
     }
-    function LocationFinder(Latitude,Longitude){
+    function LocationFinder(Latitude,Longitude){//If the user enter a city name it is used to Find the Coordinates
         const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${Latitude}&lon=${Longitude}&appid=1fd8093fa5ff12d796d7de756cc9d6b9&units=metric`;
         fetch(URL).then((response) =>{
             if (!response.ok) {
@@ -140,7 +141,7 @@ document.addEventListener("DOMContentLoaded",() =>{
             console.log(err);
         })
     }
-    function LocationWeatherForecast(Latitude,Longitude){
+    function LocationWeatherForecast(Latitude,Longitude){//It is the main function to get the Weather Forecast
         const URL = `https://api.openweathermap.org/data/2.5/onecall?lat=${Latitude}&lon=${Longitude}&appid=50c2acd53349fabd54f52b93c8650d37&units=metric`;
         LocationFinder(Latitude,Longitude);
         fetch(URL).then((response) =>{
@@ -152,59 +153,64 @@ document.addEventListener("DOMContentLoaded",() =>{
         }).then((data) =>{
             const TimeObject = DateandTime(data.current.dt,data.timezone_offset);
             const Nights = TimeObject.NightorNot;
-            if(Nights){
-                Background.style.backgroundImage = "url('./images/background-night.png')";
+            if(Nights){//If-else condition to check whether it is daytime or night time in that location
+                Background.style.backgroundImage = "url('../images/background-night.png')";
                 Search.classList.add("night-mode");
                 Search.classList.remove("light-mode");
                 Submission.classList.add("button-dark");
                 Submission.classList.remove("button-light");
                 Location.classList.add("button-dark");
                 Location.classList.remove("button-light");
-                LocationIcon.setAttribute("src","./Icons/location-dark.svg");
+                LocationIcon.setAttribute("src","../Icons/location-dark.svg");
                 DropDown.classList.add("button-dark");
                 DropDown.classList.remove("button-light");
-                MenuIcon.setAttribute("src","./Icons/history-Night.svg");
+                MenuIcon.setAttribute("src","../Icons/history-Night.svg");
             }
             else{
-                Background.style.backgroundImage = "url('./images/background-day.png')";
+                Background.style.backgroundImage = "url('../images/background-day.png')";
                 Search.classList.add("light-mode");
                 Search.classList.remove("night-mode");
                 Submission.classList.add("button-light");
                 Submission.classList.remove("button-dark");
                 Location.classList.add("button-light");
                 Location.classList.remove("button-dark");
-                LocationIcon.setAttribute("src","./Icons/location-light.svg");
+                LocationIcon.setAttribute("src","../Icons/location-light.svg");
                 DropDown.classList.add("button-light");
                 DropDown.classList.remove("button-dark");
-                MenuIcon.setAttribute("src","./Icons/history-Day.svg");
+                MenuIcon.setAttribute("src","../Icons/history-Day.svg");
             }
+            //Getting all the data by destructuring it from the object
             DateandTimes.innerHTML = `${TimeObject.Days}, ${TimeObject.Number} ${TimeObject.Months} ${TimeObject.Years} | ${TimeObject.Hours}:${TimeObject.Minutes} ${TimeObject.DayTime}`
             Temp.innerHTML=  `${Math.round(data.current.temp)}`;
             CTemp.innerHTML = `Feels like: ${Math.round(data.current.feels_like)}&deg C`;
             Humid.innerHTML = `Humidity: ${Math.round(data.current.humidity)}%`;
             Windy.innerHTML = `Wind: ${Math.round(data.current.wind_speed)}km/h`;
             WeatherC.innerHTML = `${data.current.weather[0].description}`;
-            Icon.setAttribute("src",`./Icons/${data.current.weather[0].icon}.svg`);
-            for(let i = 0; i < Image.length; i++){
+            Icon.setAttribute("src",`../Icons/${data.current.weather[0].icon}.svg`);
+            for(let i = 0; i < Image.length; i++){//This for loop help us to update the Data in the forecast
                 const DayObject = DateandTime(data.daily[i].dt,data.timezone_offset);
                 Dayss[i].innerHTML = DayObject.Days;
                 MaxMin[i].innerHTML = `${Math.round(data.daily[i].temp.min)}&deg - ${Math.round(data.daily[i].temp.max)}&deg`
-                Image[i].setAttribute("src",`./Icons/${data.daily[i].weather[0].icon}.svg`);
+                Image[i].setAttribute("src",`../Icons/${data.daily[i].weather[0].icon}.svg`);
                 Describe[i].innerHTML = `${data.daily[i].weather[0].description}`;
                 Water[i].innerHTML = `wind: ${Math.round(data.daily[i].wind_speed)}km/h`;
                 Air[i].innerHTML = `humid: ${Math.round(data.daily[i].humidity)}%`;
              }
         })
     }
-    function GettingWeather(position){
+    function GettingWeather(position){//Function to get Coordinates for location search
         let Latitude = position.coords.latitude;
         let Longitude = position.coords.longitude;
         LocationWeatherForecast(Latitude,Longitude);
     }
-    function ErrorinLocation(err){
+    function ErrorinLocation(err){//Function to handle the Error in Getting coordinates
         console.log(err.code);
     }
-    window.NameBasedWeatherSearch = (Data) =>{
+    window.NameBasedWeatherSearch = (Data) =>{//Name based Search Function
+        if(Data === ""){
+            alert("Enter a city");
+        }
+        else{
         const API = `https://api.openweathermap.org/data/2.5/weather?q=${Data}&appid=1fd8093fa5ff12d796d7de756cc9d6b9&units=metric`;
     fetch(API).then((response) =>{
         if(!response.ok){
@@ -217,18 +223,20 @@ document.addEventListener("DOMContentLoaded",() =>{
       LocationWeatherForecast(data.coord.lat,data.coord.lon);
     }).catch((err) =>{
         console.log(err);
-        alert(err);
+        alert(err.message);
     })
+}
     }
-    Location.addEventListener("click",() =>{
+    Location.addEventListener("click",() =>{//Location based search function
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(GettingWeather,ErrorinLocation);
         } else {
             console.error("Browser doesn't support GeoLocation");
+            alert("Location based search is not supported");
         }
     });
     HistoryLoader();
-    Submission.addEventListener("click",() =>{
+    Submission.addEventListener("click",() =>{ //Function to Search by adding the Event Listener to submit button
     const Value = Search.value.toLowerCase();
     NameBasedWeatherSearch(Value);
     });
@@ -236,8 +244,8 @@ document.addEventListener("DOMContentLoaded",() =>{
         if(event.key === "Enter"){
         NameBasedWeatherSearch(Search.value.toLowerCase());
     }
-    })
-    Fahernheit.addEventListener("click",() =>{
+    });
+    Fahernheit.addEventListener("click",() =>{ //To Change the Display of Current Temperature to Farhenheit
         if(Mode === 0){
         const F = Math.round((parseInt(Temp.textContent) * 1.8) + 32);
         Celsius.style.opacity = "0.8";
@@ -246,7 +254,7 @@ document.addEventListener("DOMContentLoaded",() =>{
         Mode = 1;
     }
     });
-    Celsius.addEventListener("click",() =>{
+    Celsius.addEventListener("click",() =>{ //To Change the Display of Current Temperature to Celsius
         if(Mode === 1){
         const C = Math.round((parseInt(Temp.textContent) - 32) * (5/9));
         Temp.innerHTML = C;
